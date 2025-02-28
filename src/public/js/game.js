@@ -8,6 +8,8 @@ class MemoryGame {
         this.userSequence = [];
         this.level = 0;
         this.isPlaying = false;
+        this.score = 0;
+        this.gameStarted = false;
 
         this.gridContainer = document.getElementById('grid-container');
         this.startButton = document.getElementById('start-button');
@@ -59,7 +61,14 @@ class MemoryGame {
     setupSocketListeners() {
         socket.on('gameStarted', (data) => {
             this.status.textContent = 'Oyun başladı!';
-            this.isPlaying = true;
+            this.gameStarted = true;
+            this.level = 0;
+            this.sequence = [];
+            this.userSequence = [];
+            this.score = 0;
+            this.createGrid();
+            this.generateSequence();
+            this.displaySequence();
         });
 
         socket.on('moveResult', (data) => {
@@ -71,7 +80,7 @@ class MemoryGame {
                 if (data.scores) {
                     this.updateHighScores(data.scores);
                 }
-                this.resetGame();
+                this.endGame(false);
             }
         });
     }
@@ -90,12 +99,17 @@ class MemoryGame {
     }
 
     startGame() {
+        if (this.gameStarted) return;
+        
+        this.gameStarted = true;
         this.level = 0;
         this.sequence = [];
         this.userSequence = [];
-        this.isPlaying = true;
-        socket.emit('startGame', { gridSize: this.gridSize });
-        this.nextLevel();
+        this.score = 0;
+        this.gridSize = parseInt(document.getElementById('grid-size').value);
+        this.createGrid();
+        this.generateSequence();
+        this.displaySequence();
     }
 
     nextLevel() {
@@ -130,7 +144,7 @@ class MemoryGame {
     }
 
     handleSquareClick(index) {
-        if (!this.isPlaying || this.userSequence.length >= this.sequence.length) return;
+        if (!this.gameStarted || this.userSequence.length >= this.sequence.length) return;
 
         const square = this.gridContainer.children[index];
         const squareData = this.sequence[this.sequence.length - this.userSequence.length - 1];
@@ -146,11 +160,49 @@ class MemoryGame {
         });
     }
 
-    resetGame() {
-        this.sequence = [];
-        this.userSequence = [];
-        this.level = 0;
-        this.isPlaying = false;
+    endGame(success = false) {
+        this.gameStarted = false;
+        const resultMessage = success 
+            ? `Tebrikler! Puanınız: ${this.score}` 
+            : `Oyun bitti. Puanınız: ${this.score}`;
+        
+        this.showGameResult(resultMessage);
+        
+        if (auth.isLoggedIn()) {
+            this.saveScore(this.score);
+        }
+    }
+
+    showGameResult(message) {
+        const overlay = document.getElementById('game-result-overlay');
+        const messageEl = document.getElementById('game-result-message');
+        messageEl.textContent = message;
+        overlay.classList.add('show');
+    }
+
+    closeGameResult() {
+        const overlay = document.getElementById('game-result-overlay');
+        overlay.classList.remove('show');
+    }
+
+    generateSequence() {
+        const randomSquare = Math.floor(Math.random() * this.gridSize * this.gridSize);
+        const randomColor = this.colors[Math.floor(Math.random() * this.colors.length)];
+        this.sequence.push({ index: randomSquare, color: randomColor });
+    }
+
+    saveScore(score) {
+        fetch('/api/scores', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                score: score,
+                level: this.level,
+                gridSize: this.gridSize
+            })
+        }).catch(err => console.error('Skor kaydetme hatası:', err));
     }
 
     updateHighScores(scores) {
