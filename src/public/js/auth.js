@@ -58,6 +58,8 @@ class Auth {
     hideModals() {
         this.loginModal.style.display = 'none';
         this.registerModal.style.display = 'none';
+        this.loginError.style.display = 'none';
+        this.registerError.style.display = 'none';
         this.loginError.textContent = '';
         this.registerError.textContent = '';
     }
@@ -81,9 +83,11 @@ class Auth {
                 this.currentUser = data.username;
                 window.location.reload();
             } else {
+                this.loginError.style.display = 'block';
                 this.loginError.textContent = data.error;
             }
         } catch (err) {
+            this.loginError.style.display = 'block';
             this.loginError.textContent = 'Giriş işlemi başarısız';
         }
     }
@@ -107,9 +111,11 @@ class Auth {
                 this.currentUser = data.username;
                 window.location.reload();
             } else {
+                this.registerError.style.display = 'block';
                 this.registerError.textContent = data.error;
             }
         } catch (err) {
+            this.registerError.style.display = 'block';
             this.registerError.textContent = 'Kayıt işlemi başarısız';
         }
     }

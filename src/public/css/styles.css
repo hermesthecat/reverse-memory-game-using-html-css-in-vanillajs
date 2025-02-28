@@ -252,7 +252,7 @@ button:hover {
     opacity: 0.8;
 }
 
-/* Modal Styles */
+/* Modern Modal Styles */
 .modal {
     display: none;
     position: fixed;
@@ -260,66 +260,158 @@ button:hover {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.7);
+    background: rgba(0, 0, 0, 0.8);
     z-index: 1000;
-    backdrop-filter: blur(5px);
+    backdrop-filter: blur(8px);
+    animation: modalFadeIn 0.3s ease;
+}
+
+@keyframes modalFadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
 }
 
 .modal-content {
     position: relative;
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(10px);
-    margin: 15% auto;
-    padding: 2rem;
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(12px);
+    margin: 10vh auto;
+    padding: 2.5rem;
     width: 90%;
-    max-width: 400px;
-    border-radius: 15px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    max-width: 420px;
+    border-radius: 20px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transform-origin: center;
+    animation: modalContentSlideIn 0.4s ease;
+}
+
+@keyframes modalContentSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.modal-content h2 {
+    color: #fff;
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
+    text-align: center;
+    font-weight: 600;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .close {
     position: absolute;
-    right: 1rem;
-    top: 1rem;
-    font-size: 1.5rem;
+    right: 1.2rem;
+    top: 1.2rem;
+    font-size: 1.8rem;
     cursor: pointer;
-    color: #fff;
+    color: rgba(255, 255, 255, 0.8);
     transition: all 0.3s ease;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1);
 }
 
 .close:hover {
-    color: #4CAF50;
+    color: #fff;
+    background: rgba(255, 255, 255, 0.2);
+    transform: rotate(90deg);
 }
 
 .form-group {
-    margin-bottom: 1.5rem;
+    margin-bottom: 1.8rem;
+    position: relative;
 }
 
 .form-group label {
     display: block;
-    margin-bottom: 0.5rem;
-    color: #fff;
+    margin-bottom: 0.8rem;
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 0.95rem;
+    font-weight: 500;
+    letter-spacing: 0.5px;
 }
 
 .form-group input {
     width: 100%;
-    padding: 0.8rem;
-    border: none;
-    border-radius: 5px;
-    background: rgba(255, 255, 255, 0.2);
+    padding: 1rem 1.2rem;
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.08);
     color: #fff;
     font-size: 1rem;
+    transition: all 0.3s ease;
 }
 
 .form-group input:focus {
     outline: none;
-    background: rgba(255, 255, 255, 0.3);
+    border-color: rgba(76, 175, 80, 0.5);
+    background: rgba(255, 255, 255, 0.12);
+    box-shadow: 0 0 0 4px rgba(76, 175, 80, 0.1);
+}
+
+.form-group input::placeholder {
+    color: rgba(255, 255, 255, 0.4);
+}
+
+.modal-content button[type="submit"] {
+    width: 100%;
+    padding: 1rem;
+    margin: 1rem 0 0;
+    border: none;
+    border-radius: 12px;
+    background: #4CAF50;
+    color: white;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
+}
+
+.modal-content button[type="submit"]:hover {
+    background: #45a049;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(76, 175, 80, 0.4);
+}
+
+.modal-content button[type="submit"]:active {
+    transform: translateY(0);
 }
 
 .error-message {
     color: #ff6b6b;
     margin-top: 1rem;
     text-align: center;
+    font-size: 0.9rem;
+    padding: 0.8rem;
+    border-radius: 8px;
+    background: rgba(255, 107, 107, 0.1);
+    border: 1px solid rgba(255, 107, 107, 0.2);
+    animation: errorShake 0.5s ease;
+}
+
+@keyframes errorShake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    75% { transform: translateX(5px); }
 }
 
 @media (max-width: 1024px) {
@@ -392,8 +484,16 @@ button:hover {
     }
 
     .modal-content {
-        margin: 5% auto;
-        padding: 1rem;
+        margin: 8vh auto;
+        padding: 2rem;
+    }
+
+    .modal-content h2 {
+        font-size: 1.5rem;
+    }
+
+    .form-group input {
+        padding: 0.9rem 1rem;
     }
 
     .user-status {
@@ -426,7 +526,22 @@ button:hover {
         font-size: 0.8rem;
     }
 
+    .modal-content {
+        margin: 5vh auto;
+        padding: 1.5rem;
+    }
+
+    .close {
+        right: 1rem;
+        top: 1rem;
+        font-size: 1.5rem;
+    }
+
+    .form-group {
+        margin-bottom: 1.5rem;
+    }
+
     .form-group input {
-        padding: 0.6rem;
+        padding: 0.8rem;
     }
 } 
