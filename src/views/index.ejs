@@ -10,55 +10,62 @@
     <link rel="stylesheet" href="/css/styles.css">
 </head>
 
-<body class="bg-gradient">
-    <div class="container-fluid py-4">
+<body>
+    <div class="container-fluid min-vh-100 py-4">
         <div class="row g-4">
+            <!-- Ana Oyun Alanı -->
             <div class="col-lg-9">
                 <div class="card bg-glass h-100">
-                    <div class="card-body text-center">
-                        <h1 class="display-4 mb-4">Ters Hafıza Oyunu</h1>
-                        <div class="controls mb-4">
-                            <div class="row justify-content-center align-items-center g-3">
-                                <div class="col-auto">
-                                    <label for="grid-size" class="form-label">Oyun Modu:</label>
-                                </div>
-                                <div class="col-auto">
-                                    <select id="grid-size" class="form-select">
-                                        <option value="4" <%=currentGridSize===4 ? 'selected' : '' %>>4x4</option>
-                                        <option value="5" <%=currentGridSize===5 ? 'selected' : '' %>>5x5</option>
-                                        <option value="6" <%=currentGridSize===6 ? 'selected' : '' %>>6x6</option>
-                                    </select>
-                                </div>
-                                <div class="col-auto">
-                                    <button id="start-button" class="btn btn-primary">
-                                        <i class="fas fa-play me-2"></i>Oyunu Başlat
-                                    </button>
-                                </div>
+                    <div class="card-body text-center p-4">
+                        <h1 class="display-3 fw-bold mb-5">Ters Hafıza Oyunu</h1>
+                        
+                        <!-- Kontroller -->
+                        <div class="row justify-content-center align-items-center g-3 mb-4">
+                            <div class="col-auto">
+                                <label for="grid-size" class="form-label text-white mb-0">Oyun Modu:</label>
+                            </div>
+                            <div class="col-auto">
+                                <select id="grid-size" class="form-select bg-white text-dark">
+                                    <option value="4" <%=currentGridSize===4 ? 'selected' : '' %>>4x4</option>
+                                    <option value="5" <%=currentGridSize===5 ? 'selected' : '' %>>5x5</option>
+                                    <option value="6" <%=currentGridSize===6 ? 'selected' : '' %>>6x6</option>
+                                </select>
+                            </div>
+                            <div class="col-auto">
+                                <button id="start-button" class="btn btn-primary btn-lg shadow-sm">
+                                    <i class="fas fa-play me-2"></i>Oyunu Başlat
+                                </button>
                             </div>
                         </div>
-                        <div id="grid-container" class="mb-4"></div>
-                        <p id="status" class="lead"></p>
+                        
+                        <!-- Oyun Grid'i -->
+                        <div id="grid-container" class="mx-auto mb-4"></div>
+                        
+                        <!-- Durum Mesajı -->
+                        <p id="status" class="lead text-white mb-0"></p>
                     </div>
                 </div>
             </div>
 
+            <!-- Yan Panel -->
             <div class="col-lg-3">
+                <!-- Kullanıcı Durumu -->
                 <div class="card bg-glass mb-4">
-                    <div class="card-body">
-                        <div class="user-status text-center">
+                    <div class="card-body p-4">
+                        <div class="text-center">
                             <% if (user) { %>
                                 <div class="d-flex align-items-center justify-content-between mb-3">
-                                    <span class="h5 mb-0">Hoş geldin, <%= user %></span>
+                                    <span class="h5 text-white mb-0">Hoş geldin, <%= user %></span>
                                     <button id="logout-button" class="btn btn-outline-danger btn-sm">
                                         <i class="fas fa-sign-out-alt me-2"></i>Çıkış
                                     </button>
                                 </div>
                             <% } else { %>
                                 <div class="d-grid gap-2">
-                                    <button id="login-button" class="btn btn-primary">
+                                    <button id="login-button" class="btn btn-primary btn-lg">
                                         <i class="fas fa-sign-in-alt me-2"></i>Giriş Yap
                                     </button>
-                                    <button id="register-button" class="btn btn-success">
+                                    <button id="register-button" class="btn btn-success btn-lg">
                                         <i class="fas fa-user-plus me-2"></i>Kayıt Ol
                                     </button>
                                 </div>
@@ -67,42 +74,48 @@
                     </div>
                 </div>
 
+                <!-- Skor Tablosu -->
                 <div class="card bg-glass">
-                    <div class="card-body">
-                        <h2 class="card-title text-center mb-4">
+                    <div class="card-body p-4">
+                        <h2 class="card-title text-center text-white mb-4">
                             Yüksek Skorlar
-                            <div class="badge bg-primary fs-6">
+                            <span class="badge bg-primary fs-6 ms-2">
                                 <%= currentGridSize %>x<%= currentGridSize %>
-                            </div>
+                            </span>
                         </h2>
+                        
                         <div class="scores-list">
                             <% if (typeof scores !=='undefined' && scores.length> 0) { %>
                                 <% scores.forEach(function(score, index) { %>
-                                    <div class="score-item <%= index < 3 ? 'medal-' + (index + 1) : '' %> mb-3">
-                                        <div class="d-flex align-items-center">
-                                            <% if (index < 3) { %>
-                                                <div class="medal-icon me-3">
-                                                    <% if (index===0) { %>
-                                                        <i class="fas fa-medal text-warning"></i>
-                                                    <% } else if (index===1) { %>
-                                                        <i class="fas fa-medal text-secondary"></i>
-                                                    <% } else { %>
-                                                        <i class="fas fa-medal text-bronze"></i>
-                                                    <% } %>
+                                    <div class="card bg-glass mb-3 <%= index < 3 ? 'medal-' + (index + 1) : '' %>">
+                                        <div class="card-body p-3">
+                                            <div class="d-flex align-items-center">
+                                                <% if (index < 3) { %>
+                                                    <div class="me-3">
+                                                        <% if (index===0) { %>
+                                                            <i class="fas fa-medal fa-2x text-warning"></i>
+                                                        <% } else if (index===1) { %>
+                                                            <i class="fas fa-medal fa-2x text-secondary"></i>
+                                                        <% } else { %>
+                                                            <i class="fas fa-medal fa-2x text-bronze"></i>
+                                                        <% } %>
+                                                    </div>
+                                                <% } %>
+                                                <div class="flex-grow-1">
+                                                    <div class="d-flex justify-content-between align-items-center mb-1">
+                                                        <span class="badge bg-success">Seviye <%= score.level %></span>
+                                                        <small class="text-white-50">
+                                                            <%= new Date(score.date).toLocaleString('tr-TR') %>
+                                                        </small>
+                                                    </div>
+                                                    <div class="text-white"><%= score.username %></div>
                                                 </div>
-                                            <% } %>
-                                            <div class="score-info flex-grow-1">
-                                                <div class="d-flex justify-content-between align-items-center">
-                                                    <span class="score-level badge bg-success">Seviye <%= score.level %></span>
-                                                    <small class="text-muted"><%= new Date(score.date).toLocaleString('tr-TR') %></small>
-                                                </div>
-                                                <div class="score-username mt-1"><%= score.username %></div>
                                             </div>
                                         </div>
                                     </div>
                                 <% }); %>
                             <% } else { %>
-                                <div class="text-center text-muted">Henüz skor kaydedilmemiş</div>
+                                <div class="text-center text-white-50">Henüz skor kaydedilmemiş</div>
                             <% } %>
                         </div>
                     </div>
@@ -111,72 +124,80 @@
         </div>
     </div>
 
-    <!-- Login Modal -->
+    <!-- Giriş Modal -->
     <div class="modal fade" id="login-modal" tabindex="-1">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content bg-glass">
                 <div class="modal-header border-0">
-                    <h5 class="modal-title">Giriş Yap</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    <h5 class="modal-title text-white">Giriş Yap</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
                 </div>
-                <div class="modal-body">
+                <div class="modal-body p-4">
                     <form id="login-form">
-                        <div class="mb-3">
-                            <label for="login-username" class="form-label">Kullanıcı Adı</label>
+                        <div class="mb-4">
+                            <label for="login-username" class="form-label text-white">Kullanıcı Adı</label>
                             <div class="input-group">
-                                <span class="input-group-text"><i class="fas fa-user"></i></span>
-                                <input type="text" class="form-control" id="login-username" required>
+                                <span class="input-group-text bg-transparent text-white border-end-0">
+                                    <i class="fas fa-user"></i>
+                                </span>
+                                <input type="text" class="form-control bg-transparent text-white" id="login-username" required>
                             </div>
                         </div>
                         <div class="mb-4">
-                            <label for="login-password" class="form-label">Şifre</label>
+                            <label for="login-password" class="form-label text-white">Şifre</label>
                             <div class="input-group">
-                                <span class="input-group-text"><i class="fas fa-lock"></i></span>
-                                <input type="password" class="form-control" id="login-password" required>
+                                <span class="input-group-text bg-transparent text-white border-end-0">
+                                    <i class="fas fa-lock"></i>
+                                </span>
+                                <input type="password" class="form-control bg-transparent text-white" id="login-password" required>
                             </div>
                         </div>
                         <div class="d-grid">
-                            <button type="submit" class="btn btn-primary">
+                            <button type="submit" class="btn btn-primary btn-lg">
                                 <i class="fas fa-sign-in-alt me-2"></i>Giriş Yap
                             </button>
                         </div>
-                        <div id="login-error" class="alert alert-danger mt-3" style="display: none;"></div>
+                        <div id="login-error" class="alert alert-danger mt-3 d-none"></div>
                     </form>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Register Modal -->
+    <!-- Kayıt Modal -->
     <div class="modal fade" id="register-modal" tabindex="-1">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content bg-glass">
                 <div class="modal-header border-0">
-                    <h5 class="modal-title">Kayıt Ol</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    <h5 class="modal-title text-white">Kayıt Ol</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
                 </div>
-                <div class="modal-body">
+                <div class="modal-body p-4">
                     <form id="register-form">
-                        <div class="mb-3">
-                            <label for="register-username" class="form-label">Kullanıcı Adı</label>
+                        <div class="mb-4">
+                            <label for="register-username" class="form-label text-white">Kullanıcı Adı</label>
                             <div class="input-group">
-                                <span class="input-group-text"><i class="fas fa-user"></i></span>
-                                <input type="text" class="form-control" id="register-username" required>
+                                <span class="input-group-text bg-transparent text-white border-end-0">
+                                    <i class="fas fa-user"></i>
+                                </span>
+                                <input type="text" class="form-control bg-transparent text-white" id="register-username" required>
                             </div>
                         </div>
                         <div class="mb-4">
-                            <label for="register-password" class="form-label">Şifre</label>
+                            <label for="register-password" class="form-label text-white">Şifre</label>
                             <div class="input-group">
-                                <span class="input-group-text"><i class="fas fa-lock"></i></span>
-                                <input type="password" class="form-control" id="register-password" required>
+                                <span class="input-group-text bg-transparent text-white border-end-0">
+                                    <i class="fas fa-lock"></i>
+                                </span>
+                                <input type="password" class="form-control bg-transparent text-white" id="register-password" required>
                             </div>
                         </div>
                         <div class="d-grid">
-                            <button type="submit" class="btn btn-success">
+                            <button type="submit" class="btn btn-success btn-lg">
                                 <i class="fas fa-user-plus me-2"></i>Kayıt Ol
                             </button>
                         </div>
-                        <div id="register-error" class="alert alert-danger mt-3" style="display: none;"></div>
+                        <div id="register-error" class="alert alert-danger mt-3 d-none"></div>
                     </form>
                 </div>
             </div>
