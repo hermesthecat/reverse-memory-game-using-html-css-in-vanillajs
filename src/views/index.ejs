@@ -1,21 +1,22 @@
 <!DOCTYPE html>
 <html lang="tr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ters Hafıza Oyunu</title>
     <link rel="stylesheet" href="/css/styles.css">
 </head>
+
 <body>
     <div id="game-container">
         <h1>Ters Hafıza Oyunu</h1>
         <div id="controls">
             <label for="grid-size">Grid Boyutu Seçin:</label>
             <select id="grid-size">
-                <option value="3">3x3</option>
-                <option value="4">4x4</option>
-                <option value="5">5x5</option>
-                <option value="6">6x6</option>
+                <option value="4" <%= currentGridSize === 4 ? 'selected' : '' %>>4x4</option>
+                <option value="5" <%= currentGridSize === 5 ? 'selected' : '' %>>5x5</option>
+                <option value="6" <%= currentGridSize === 6 ? 'selected' : '' %>>6x6</option>
             </select>
             <button id="start-button">Oyunu Başlat</button>
         </div>
@@ -24,18 +25,17 @@
         </div>
         <p id="status"></p>
         <div id="scoreboard">
-            <h2>Yüksek Skorlar</h2>
+            <h2>Yüksek Skorlar (<span id="current-grid-size"><%= currentGridSize %>x<%= currentGridSize %></span>)</h2>
             <ul id="high-scores">
                 <% if (typeof scores !== 'undefined' && scores.length > 0) { %>
                     <% scores.forEach(function(score) { %>
                         <li>
                             Seviye <%= score.level %> - 
-                            <%= score.gridSize %>x<%= score.gridSize %> Grid - 
                             <%= new Date(score.date).toLocaleString('tr-TR') %>
                         </li>
                     <% }); %>
                 <% } else { %>
-                    <li>Henüz skor kaydedilmemiş</li>
+                    <li>Bu grid boyutu için henüz skor kaydedilmemiş</li>
                 <% } %>
             </ul>
         </div>
@@ -43,4 +43,5 @@
     <script src="/socket.io/socket.io.js"></script>
     <script src="/js/game.js"></script>
 </body>
-</html> 
+
+</html>

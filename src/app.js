@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express');
 const app = express();
 const http = require('http').createServer(app);
@@ -7,7 +8,7 @@ const mongoose = require('mongoose');
 const Score = require('./models/Score');
 
 // MongoDB bağlantısı
-mongoose.connect('mongodb://localhost:27017/memory-game', {
+mongoose.connect(process.env.MONGODB_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true
 }).then(() => {
@@ -25,13 +26,24 @@ app.use(express.json());
 // Routes
 app.get('/', async (req, res) => {
     try {
-        const scores = await Score.find()
-            .sort({ level: -1, date: -1 })
-            .limit(10);
-        res.render('index', { scores });
+        const gridSize = parseInt(req.query.gridSize) || 4; // Varsayılan 4x4
+        const scores = await Score.findByGridSize(gridSize);
+        res.render('index', { scores, currentGridSize: gridSize });
     } catch (err) {
         console.error('Skor yükleme hatası:', err);
-        res.render('index', { scores: [] });
+        res.render('index', { scores: [], currentGridSize: 4 });
+    }
+});
+
+// API endpoint for scores
+app.get('/api/scores/:gridSize', async (req, res) => {
+    try {
+        const gridSize = parseInt(req.params.gridSize);
+        const scores = await Score.findByGridSize(gridSize);
+        res.json(scores);
+    } catch (err) {
+        console.error('Skor yükleme hatası:', err);
+        res.status(500).json({ error: 'Skorlar yüklenemedi' });
     }
 });
 
@@ -55,9 +67,7 @@ io.on('connection', (socket) => {
                 }).save();
 
                 // Yeni skor listesini al
-                const scores = await Score.find()
-                    .sort({ level: -1, date: -1 })
-                    .limit(10);
+                const scores = await Score.findByGridSize(data.gridSize);
 
                 socket.emit('moveResult', { 
                     success: false,

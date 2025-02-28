@@ -3,7 +3,7 @@ const socket = io();
 class MemoryGame {
     constructor() {
         this.colors = ['#e57373', '#81c784', '#64b5f6', '#ffd54f', '#ba68c8', '#ff8a65'];
-        this.gridSize = 3;
+        this.gridSize = parseInt(document.getElementById('grid-size').value);
         this.sequence = [];
         this.userSequence = [];
         this.level = 0;
@@ -14,6 +14,7 @@ class MemoryGame {
         this.gridSizeSelect = document.getElementById('grid-size');
         this.status = document.getElementById('status');
         this.highScores = document.getElementById('high-scores');
+        this.currentGridSizeSpan = document.getElementById('current-grid-size');
 
         this.init();
     }
@@ -23,9 +24,25 @@ class MemoryGame {
         this.gridSizeSelect.addEventListener('change', (e) => {
             this.gridSize = parseInt(e.target.value);
             this.createGrid();
+            this.updateGridSizeDisplay();
+            this.fetchScores();
         });
         this.createGrid();
         this.setupSocketListeners();
+    }
+
+    updateGridSizeDisplay() {
+        this.currentGridSizeSpan.textContent = `${this.gridSize}x${this.gridSize}`;
+    }
+
+    async fetchScores() {
+        try {
+            const response = await fetch(`/api/scores/${this.gridSize}`);
+            const scores = await response.json();
+            this.updateHighScores(scores);
+        } catch (err) {
+            console.error('Skor yükleme hatası:', err);
+        }
     }
 
     setupSocketListeners() {
@@ -127,9 +144,15 @@ class MemoryGame {
 
     updateHighScores(scores) {
         this.highScores.innerHTML = '';
+        if (scores.length === 0) {
+            const li = document.createElement('li');
+            li.textContent = 'Bu grid boyutu için henüz skor kaydedilmemiş';
+            this.highScores.appendChild(li);
+            return;
+        }
         scores.forEach(score => {
             const li = document.createElement('li');
-            li.textContent = `Seviye ${score.level} - ${score.gridSize}x${score.gridSize} Grid - ${new Date(score.date).toLocaleString('tr-TR')}`;
+            li.textContent = `Seviye ${score.level} - ${new Date(score.date).toLocaleString('tr-TR')}`;
             this.highScores.appendChild(li);
         });
     }
