@@ -1,3 +1,51 @@
+:root {
+    /* Light theme variables */
+    --bg-gradient-light: linear-gradient(135deg, #1e3c72, #2a5298);
+    --text-color-light: #fff;
+    --bg-container-light: rgba(255, 255, 255, 0.1);
+    --border-color-light: rgba(255, 255, 255, 0.1);
+    --shadow-color-light: rgba(0, 0, 0, 0.1);
+    --button-bg-light: #4CAF50;
+    --button-hover-light: #45a049;
+    --input-bg-light: rgba(255, 255, 255, 0.08);
+    --modal-bg-light: rgba(0, 0, 0, 0.8);
+
+    /* Dark theme variables */
+    --bg-gradient-dark: linear-gradient(135deg, #0f172a, #1e293b);
+    --text-color-dark: #e2e8f0;
+    --bg-container-dark: rgba(30, 41, 59, 0.7);
+    --border-color-dark: rgba(100, 116, 139, 0.2);
+    --shadow-color-dark: rgba(0, 0, 0, 0.25);
+    --button-bg-dark: #3b82f6;
+    --button-hover-dark: #2563eb;
+    --input-bg-dark: rgba(30, 41, 59, 0.8);
+    --modal-bg-dark: rgba(15, 23, 42, 0.9);
+
+    /* Default theme (light) */
+    --bg-gradient: var(--bg-gradient-light);
+    --text-color: var(--text-color-light);
+    --bg-container: var(--bg-container-light);
+    --border-color: var(--border-color-light);
+    --shadow-color: var(--shadow-color-light);
+    --button-bg: var(--button-bg-light);
+    --button-hover: var(--button-hover-light);
+    --input-bg: var(--input-bg-light);
+    --modal-bg: var(--modal-bg-light);
+}
+
+/* Dark theme class */
+body.dark-theme {
+    --bg-gradient: var(--bg-gradient-dark);
+    --text-color: var(--text-color-dark);
+    --bg-container: var(--bg-container-dark);
+    --border-color: var(--border-color-dark);
+    --shadow-color: var(--shadow-color-dark);
+    --button-bg: var(--button-bg-dark);
+    --button-hover: var(--button-hover-dark);
+    --input-bg: var(--input-bg-dark);
+    --modal-bg: var(--modal-bg-dark);
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -7,10 +55,11 @@
 body {
     font-family: 'Arial', sans-serif;
     min-height: 100vh;
-    background: linear-gradient(135deg, #1e3c72, #2a5298);
-    color: #fff;
+    background: var(--bg-gradient);
+    color: var(--text-color);
     padding: 1rem;
     overflow-x: hidden;
+    transition: all 0.3s ease;
 }
 
 .main-container {
@@ -24,11 +73,10 @@ body {
 #game-container {
     flex: 1;
     text-align: center;
-    background: rgba(255, 255, 255, 0.1);
+    background: var(--bg-container);
     padding: 2rem;
     border-radius: 15px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-    backdrop-filter: blur(10px);
+    box-shadow: 0 8px 32px var(--shadow-color);
 }
 
 .sidebar {
@@ -43,16 +91,16 @@ body {
     flex-direction: column;
     gap: 0.8rem;
     padding: 1.5rem;
-    background: rgba(255, 255, 255, 0.1);
+    background: var(--bg-container);
     border-radius: 15px;
     backdrop-filter: blur(10px);
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 8px 32px var(--shadow-color);
 }
 
 .user-status span {
     font-size: 1.1rem;
     font-weight: 500;
-    color: #fff;
+    color: var(--text-color);
     text-align: center;
 }
 
@@ -64,7 +112,7 @@ body {
 .small-button {
     padding: 0.5rem 1rem;
     font-size: 0.9rem;
-    background: #4CAF50;
+    background: var(--button-bg);
     color: white;
     border: none;
     border-radius: 5px;
@@ -73,7 +121,7 @@ body {
 }
 
 .small-button:hover {
-    background: #45a049;
+    background: var(--button-hover);
     transform: translateY(-2px);
 }
 
@@ -81,10 +129,9 @@ body {
     width: 300px;
     position: sticky;
     top: 1rem;
-    background: rgba(255, 255, 255, 0.1);
+    background: var(--bg-container);
     border-radius: 15px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-    backdrop-filter: blur(10px);
+    box-shadow: 0 8px 32px var(--shadow-color);
     max-height: calc(100vh - 2rem);
     overflow-y: auto;
 }
@@ -95,7 +142,7 @@ body {
 
 h1 {
     margin-bottom: 2rem;
-    color: #fff;
+    color: var(--text-color);
     font-size: 2.5rem;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
 }
@@ -115,17 +162,17 @@ select, button {
 }
 
 select {
-    background: #fff;
-    color: #333;
+    background: var(--input-bg);
+    color: var(--text-color);
 }
 
 button {
-    background: #4CAF50;
+    background: var(--button-bg);
     color: white;
 }
 
 button:hover {
-    background: #45a049;
+    background: var(--button-hover);
     transform: translateY(-2px);
 }
 
@@ -141,7 +188,7 @@ button:hover {
 .grid-square {
     width: 100%;
     height: 100%;
-    background: rgba(255, 255, 255, 0.1);
+    background: var(--bg-container);
     border-radius: 10px;
     cursor: pointer;
     transition: all 0.3s ease;
@@ -168,7 +215,7 @@ button:hover {
     display: inline-block;
     margin-top: 0.5rem;
     font-size: 1.2rem;
-    color: #4CAF50;
+    color: var(--button-bg);
 }
 
 #high-scores {
@@ -178,7 +225,7 @@ button:hover {
 #high-scores li {
     padding: 1rem;
     margin: 0.5rem 0;
-    background: rgba(255, 255, 255, 0.1);
+    background: var(--bg-container);
     border-radius: 5px;
     display: flex;
     align-items: center;
@@ -211,7 +258,7 @@ button:hover {
     align-items: center;
     justify-content: center;
     border-radius: 50%;
-    background: rgba(255, 255, 255, 0.1);
+    background: var(--bg-container);
 }
 
 .medal-icon .fa-medal.gold {
