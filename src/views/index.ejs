@@ -26,7 +26,17 @@
         <div id="scoreboard">
             <h2>Yüksek Skorlar</h2>
             <ul id="high-scores">
-                <!-- Yüksek skorlar dinamik olarak eklenecek -->
+                <% if (typeof scores !== 'undefined' && scores.length > 0) { %>
+                    <% scores.forEach(function(score) { %>
+                        <li>
+                            Seviye <%= score.level %> - 
+                            <%= score.gridSize %>x<%= score.gridSize %> Grid - 
+                            <%= new Date(score.date).toLocaleString('tr-TR') %>
+                        </li>
+                    <% }); %>
+                <% } else { %>
+                    <li>Henüz skor kaydedilmemiş</li>
+                <% } %>
             </ul>
         </div>
     </div>
