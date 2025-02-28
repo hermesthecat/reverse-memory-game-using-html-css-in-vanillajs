@@ -12,9 +12,18 @@
 <body>
     <div class="main-container">
         <div id="game-container">
+            <div class="user-status">
+                <% if (user) { %>
+                    <span>Hoş geldin, <%= user %></span>
+                    <button id="logout-button" class="small-button">Çıkış Yap</button>
+                    <% } else { %>
+                        <button id="login-button" class="small-button">Giriş Yap</button>
+                        <button id="register-button" class="small-button">Kayıt Ol</button>
+                        <% } %>
+            </div>
             <h1>Ters Hafıza Oyunu</h1>
             <div id="controls">
-                <label for="grid-size">Grid Boyutu Seçin:</label>
+                <label for="grid-size">Oyun Modu:</label>
                 <select id="grid-size">
                     <option value="4" <%=currentGridSize===4 ? 'selected' : '' %>>4x4</option>
                     <option value="5" <%=currentGridSize===5 ? 'selected' : '' %>>5x5</option>
@@ -50,6 +59,9 @@
                                     <% } %>
                                         <div class="score-info">
                                             <span class="score-level">Seviye <%= score.level %></span>
+                                            <span class="score-username">
+                                                <%= score.username %>
+                                            </span>
                                             <span class="score-date">
                                                 <%= new Date(score.date).toLocaleString('tr-TR') %>
                                             </span>
@@ -63,8 +75,50 @@
             </div>
         </div>
     </div>
+
+    <!-- Login Modal -->
+    <div id="login-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Giriş Yap</h2>
+            <form id="login-form">
+                <div class="form-group">
+                    <label for="login-username">Kullanıcı Adı:</label>
+                    <input type="text" id="login-username" required>
+                </div>
+                <div class="form-group">
+                    <label for="login-password">Şifre:</label>
+                    <input type="password" id="login-password" required>
+                </div>
+                <button type="submit">Giriş Yap</button>
+            </form>
+            <p class="error-message" id="login-error"></p>
+        </div>
+    </div>
+
+    <!-- Register Modal -->
+    <div id="register-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Kayıt Ol</h2>
+            <form id="register-form">
+                <div class="form-group">
+                    <label for="register-username">Kullanıcı Adı:</label>
+                    <input type="text" id="register-username" required>
+                </div>
+                <div class="form-group">
+                    <label for="register-password">Şifre:</label>
+                    <input type="password" id="register-password" required>
+                </div>
+                <button type="submit">Kayıt Ol</button>
+            </form>
+            <p class="error-message" id="register-error"></p>
+        </div>
+    </div>
+
     <script src="/socket.io/socket.io.js"></script>
     <script src="/js/game.js"></script>
+    <script src="/js/auth.js"></script>
 </body>
 
 </html>

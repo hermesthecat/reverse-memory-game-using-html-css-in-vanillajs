@@ -10,6 +10,15 @@ const scoreSchema = new mongoose.Schema({
         required: true,
         index: true
     },
+    user: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+        required: true
+    },
+    username: {
+        type: String,
+        required: true
+    },
     date: {
         type: Date,
         default: Date.now

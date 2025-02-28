@@ -31,6 +31,30 @@ body {
     backdrop-filter: blur(10px);
 }
 
+.user-status {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.small-button {
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+    background: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.small-button:hover {
+    background: #45a049;
+    transform: translateY(-2px);
+}
+
 #scoreboard {
     width: 300px;
     position: sticky;
@@ -196,9 +220,84 @@ button:hover {
     color: #4CAF50;
 }
 
+.score-username {
+    font-size: 1rem;
+    color: #fff;
+}
+
 .score-date {
     font-size: 0.9rem;
     opacity: 0.8;
+}
+
+/* Modal Styles */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    z-index: 1000;
+    backdrop-filter: blur(5px);
+}
+
+.modal-content {
+    position: relative;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    margin: 15% auto;
+    padding: 2rem;
+    width: 90%;
+    max-width: 400px;
+    border-radius: 15px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+.close {
+    position: absolute;
+    right: 1rem;
+    top: 1rem;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: #fff;
+    transition: all 0.3s ease;
+}
+
+.close:hover {
+    color: #4CAF50;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: #fff;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 0.8rem;
+    border: none;
+    border-radius: 5px;
+    background: rgba(255, 255, 255, 0.2);
+    color: #fff;
+    font-size: 1rem;
+}
+
+.form-group input:focus {
+    outline: none;
+    background: rgba(255, 255, 255, 0.3);
+}
+
+.error-message {
+    color: #ff6b6b;
+    margin-top: 1rem;
+    text-align: center;
 }
 
 @media (max-width: 1024px) {
@@ -221,6 +320,11 @@ button:hover {
         display: grid;
         grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
         gap: 1rem;
+    }
+
+    .modal-content {
+        margin: 10% auto;
+        padding: 1.5rem;
     }
 }
 
@@ -255,6 +359,11 @@ button:hover {
         width: 32px;
         height: 32px;
     }
+
+    .modal-content {
+        margin: 5% auto;
+        padding: 1rem;
+    }
 }
 
 @media (max-width: 480px) {
@@ -272,5 +381,9 @@ button:hover {
 
     .score-date {
         font-size: 0.8rem;
+    }
+
+    .form-group input {
+        padding: 0.6rem;
     }
 } 
