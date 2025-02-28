@@ -60,7 +60,6 @@ class MemoryGame {
 
     setupSocketListeners() {
         socket.on('gameStarted', (data) => {
-            this.status.textContent = 'Oyun başladı!';
             this.gameStarted = true;
             this.level = 0;
             this.sequence = [];
@@ -73,10 +72,8 @@ class MemoryGame {
 
         socket.on('moveResult', (data) => {
             if (data.success) {
-                this.status.textContent = 'Doğru! Sıradaki seviye...';
-                setTimeout(() => this.nextLevel(), 1000);
+                this.showCorrectAnswerOverlay();
             } else {
-                this.status.textContent = `Yanlış! Oyun bitti. Ulaştığınız seviye: ${this.level}`;
                 if (data.scores) {
                     this.updateHighScores(data.scores);
                 }
@@ -108,8 +105,28 @@ class MemoryGame {
         this.score = 0;
         this.gridSize = parseInt(document.getElementById('grid-size').value);
         this.createGrid();
-        this.generateSequence();
-        this.displaySequence();
+        this.showStartOverlay();
+    }
+
+    showStartOverlay() {
+        const overlay = document.getElementById('game-start-overlay');
+        const countdownEl = overlay.querySelector('.countdown');
+        overlay.classList.add('show');
+        
+        let count = 3;
+        countdownEl.textContent = count;
+        
+        const countdown = setInterval(() => {
+            count--;
+            if (count > 0) {
+                countdownEl.textContent = count;
+            } else {
+                clearInterval(countdown);
+                overlay.classList.remove('show');
+                this.generateSequence();
+                this.displaySequence();
+            }
+        }, 1000);
     }
 
     nextLevel() {
@@ -218,6 +235,26 @@ class MemoryGame {
             li.textContent = `Seviye ${score.level} - ${new Date(score.date).toLocaleString('tr-TR')}`;
             this.highScores.appendChild(li);
         });
+    }
+
+    showCorrectAnswerOverlay() {
+        const overlay = document.getElementById('correct-answer-overlay');
+        const countdownEl = overlay.querySelector('.countdown');
+        overlay.classList.add('show');
+        
+        let count = 3;
+        countdownEl.textContent = count;
+        
+        const countdown = setInterval(() => {
+            count--;
+            if (count > 0) {
+                countdownEl.textContent = count;
+            } else {
+                clearInterval(countdown);
+                overlay.classList.remove('show');
+                this.nextLevel();
+            }
+        }, 1000);
     }
 }
 
