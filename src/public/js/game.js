@@ -39,7 +39,10 @@ class MemoryGame {
                 this.status.textContent = 'Doğru! Sıradaki seviye...';
                 setTimeout(() => this.nextLevel(), 1000);
             } else {
-                this.status.textContent = 'Yanlış! Tekrar deneyin.';
+                this.status.textContent = `Yanlış! Oyun bitti. Ulaştığınız seviye: ${this.level}`;
+                if (data.scores) {
+                    this.updateHighScores(data.scores);
+                }
                 this.resetGame();
             }
         });
@@ -110,7 +113,8 @@ class MemoryGame {
         socket.emit('moveSubmitted', {
             userSequence: this.userSequence,
             sequence: this.sequence,
-            level: this.level
+            level: this.level,
+            gridSize: this.gridSize
         });
     }
 
@@ -125,7 +129,7 @@ class MemoryGame {
         this.highScores.innerHTML = '';
         scores.forEach(score => {
             const li = document.createElement('li');
-            li.textContent = `Seviye ${score.level} - ${score.date}`;
+            li.textContent = `Seviye ${score.level} - ${score.gridSize}x${score.gridSize} Grid - ${new Date(score.date).toLocaleString('tr-TR')}`;
             this.highScores.appendChild(li);
         });
     }
