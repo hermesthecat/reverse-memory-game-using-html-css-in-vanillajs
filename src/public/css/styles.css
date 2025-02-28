@@ -1,3 +1,13 @@
+:root {
+    --primary-color: #4CAF50;
+    --primary-hover: #45a049;
+    --bronze-color: #CD7F32;
+    --text-light: rgba(255, 255, 255, 0.95);
+    --text-muted: rgba(255, 255, 255, 0.7);
+    --glass-bg: rgba(255, 255, 255, 0.15);
+    --glass-border: rgba(255, 255, 255, 0.2);
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -141,21 +151,25 @@ button:hover {
 .grid-square {
     width: 100%;
     height: 100%;
-    background: rgba(255, 255, 255, 0.1);
+    background: rgba(0, 0, 0, 0.2);
     border-radius: 10px;
     cursor: pointer;
     transition: all 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .grid-square:hover {
     transform: scale(1.05);
-    background: rgba(255, 255, 255, 0.2);
+    background: rgba(0, 0, 0, 0.3);
 }
 
 #status {
     margin: 1rem 0;
     font-size: 1.2rem;
     min-height: 2rem;
+    color: var(--text-light);
+    font-weight: 500;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
 }
 
 #scoreboard h2 {
@@ -192,15 +206,18 @@ button:hover {
 }
 
 .medal-1 {
-    background: rgba(255, 215, 0, 0.15) !important;
+    background: rgba(255, 215, 0, 0.2) !important;
+    border: 1px solid rgba(255, 215, 0, 0.3);
 }
 
 .medal-2 {
-    background: rgba(192, 192, 192, 0.15) !important;
+    background: rgba(192, 192, 192, 0.2) !important;
+    border: 1px solid rgba(192, 192, 192, 0.3);
 }
 
 .medal-3 {
-    background: rgba(205, 127, 50, 0.15) !important;
+    background: rgba(205, 127, 50, 0.2) !important;
+    border: 1px solid rgba(205, 127, 50, 0.3);
 }
 
 .medal-icon {
@@ -244,7 +261,8 @@ button:hover {
 
 .score-username {
     font-size: 1rem;
-    color: #fff;
+    color: var(--text-light);
+    font-weight: 600;
 }
 
 .score-date {
@@ -279,7 +297,7 @@ button:hover {
 
 .modal-content {
     position: relative;
-    background: rgba(255, 255, 255, 0.15);
+    background: rgba(20, 20, 20, 0.95);
     backdrop-filter: blur(12px);
     margin: 10vh auto;
     padding: 2.5rem;
@@ -287,7 +305,7 @@ button:hover {
     max-width: 420px;
     border-radius: 20px;
     box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 1px solid var(--glass-border);
     transform-origin: center;
     animation: modalContentSlideIn 0.4s ease;
 }
@@ -304,7 +322,7 @@ button:hover {
 }
 
 .modal-content h2 {
-    color: #fff;
+    color: var(--text-light);
     font-size: 1.8rem;
     margin-bottom: 1.5rem;
     text-align: center;
@@ -343,7 +361,7 @@ button:hover {
 .form-group label {
     display: block;
     margin-bottom: 0.8rem;
-    color: rgba(255, 255, 255, 0.9);
+    color: var(--text-light);
     font-size: 0.95rem;
     font-weight: 500;
     letter-spacing: 0.5px;
@@ -352,23 +370,23 @@ button:hover {
 .form-group input {
     width: 100%;
     padding: 1rem 1.2rem;
-    border: 2px solid rgba(255, 255, 255, 0.1);
+    border: 2px solid var(--glass-border);
     border-radius: 12px;
-    background: rgba(255, 255, 255, 0.08);
-    color: #fff;
+    background: rgba(0, 0, 0, 0.2);
+    color: var(--text-light);
     font-size: 1rem;
     transition: all 0.3s ease;
 }
 
 .form-group input:focus {
     outline: none;
-    border-color: rgba(76, 175, 80, 0.5);
-    background: rgba(255, 255, 255, 0.12);
-    box-shadow: 0 0 0 4px rgba(76, 175, 80, 0.1);
+    border-color: var(--primary-color);
+    background: rgba(0, 0, 0, 0.3);
+    box-shadow: 0 0 0 4px rgba(76, 175, 80, 0.25);
 }
 
 .form-group input::placeholder {
-    color: rgba(255, 255, 255, 0.4);
+    color: var(--text-muted);
 }
 
 .modal-content button[type="submit"] {
@@ -544,4 +562,80 @@ button:hover {
     .form-group input {
         padding: 0.8rem;
     }
+}
+
+.bg-gradient {
+    background: linear-gradient(135deg, #1e3c72, #2a5298);
+}
+
+.bg-glass {
+    background: rgba(255, 255, 255, 0.1) !important;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.card {
+    border: none;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+.score-item {
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+    transition: all 0.3s ease;
+}
+
+.score-item:hover {
+    transform: translateX(5px);
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.text-bronze {
+    color: var(--bronze-color) !important;
+}
+
+/* Modal Styles */
+.modal-content {
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.modal-header {
+    border-bottom: none;
+}
+
+.modal-header .btn-close {
+    background-color: rgba(255, 255, 255, 0.5);
+}
+
+.form-control, .form-select, .input-group-text {
+    background-color: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #fff;
+}
+
+.form-control:focus, .form-select:focus {
+    background-color: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.3);
+    box-shadow: 0 0 0 0.25rem rgba(255, 255, 255, 0.1);
+    color: #fff;
+}
+
+.form-control::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.input-group-text {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.form-select {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23ffffff' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e");
+}
+
+.form-select option {
+    background-color: #2a5298;
+    color: #fff;
 } 
