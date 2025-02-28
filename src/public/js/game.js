@@ -17,6 +17,8 @@ class MemoryGame {
         this.currentGridSizeSpan = document.getElementById('current-grid-size');
 
         this.init();
+        this.handleResize = this.handleResize.bind(this);
+        window.addEventListener('resize', this.handleResize);
     }
 
     init() {
@@ -29,6 +31,15 @@ class MemoryGame {
         });
         this.createGrid();
         this.setupSocketListeners();
+    }
+
+    handleResize() {
+        this.adjustGridLayout();
+    }
+
+    adjustGridLayout() {
+        const containerWidth = this.gridContainer.offsetWidth;
+        this.gridContainer.style.gridTemplateColumns = `repeat(${this.gridSize}, 1fr)`;
     }
 
     updateGridSizeDisplay() {
@@ -67,7 +78,7 @@ class MemoryGame {
 
     createGrid() {
         this.gridContainer.innerHTML = '';
-        this.gridContainer.style.gridTemplateColumns = `repeat(${this.gridSize}, 100px)`;
+        this.adjustGridLayout();
         
         for (let i = 0; i < this.gridSize * this.gridSize; i++) {
             const square = document.createElement('div');
