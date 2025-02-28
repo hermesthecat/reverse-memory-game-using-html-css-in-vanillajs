@@ -11,15 +11,6 @@
 
 <body>
     <div class="main-container">
-        <div class="user-status">
-            <% if (user) { %>
-                <span>Hoş geldin, <%= user %></span>
-                <button id="logout-button" class="small-button">Çıkış Yap</button>
-            <% } else { %>
-                <button id="login-button" class="small-button">Giriş Yap</button>
-                <button id="register-button" class="small-button">Kayıt Ol</button>
-            <% } %>
-        </div>
         <div id="game-container">
             <h1>Ters Hafıza Oyunu</h1>
             <div id="controls">
@@ -37,41 +28,53 @@
             <p id="status"></p>
         </div>
 
-        <div id="scoreboard">
-            <div class="scoreboard-content">
-                <h2>Yüksek Skorlar <br><span id="current-grid-size">
-                        <%= currentGridSize %>x<%= currentGridSize %>
-                    </span></h2>
-                <ul id="high-scores">
-                    <% if (typeof scores !=='undefined' && scores.length> 0) { %>
-                        <% scores.forEach(function(score, index) { %>
-                            <li class="<%= index < 3 ? 'medal-' + (index + 1) : '' %>">
-                                <% if (index < 3) { %>
-                                    <div class="medal-icon">
-                                        <% if (index===0) { %>
-                                            <i class="fas fa-medal gold"></i>
-                                            <% } else if (index===1) { %>
-                                                <i class="fas fa-medal silver"></i>
-                                                <% } else { %>
-                                                    <i class="fas fa-medal bronze"></i>
-                                                    <% } %>
-                                    </div>
-                                    <% } %>
-                                        <div class="score-info">
-                                            <span class="score-level">Seviye <%= score.level %></span>
-                                            <span class="score-username">
-                                                <%= score.username %>
-                                            </span>
-                                            <span class="score-date">
-                                                <%= new Date(score.date).toLocaleString('tr-TR') %>
-                                            </span>
+        <div class="sidebar">
+            <div class="user-status">
+                <% if (user) { %>
+                    <span>Hoş geldin, <%= user %></span>
+                    <button id="logout-button" class="small-button">Çıkış Yap</button>
+                <% } else { %>
+                    <button id="login-button" class="small-button">Giriş Yap</button>
+                    <button id="register-button" class="small-button">Kayıt Ol</button>
+                <% } %>
+            </div>
+
+            <div id="scoreboard">
+                <div class="scoreboard-content">
+                    <h2>Yüksek Skorlar <br><span id="current-grid-size">
+                            <%= currentGridSize %>x<%= currentGridSize %>
+                        </span></h2>
+                    <ul id="high-scores">
+                        <% if (typeof scores !=='undefined' && scores.length> 0) { %>
+                            <% scores.forEach(function(score, index) { %>
+                                <li class="<%= index < 3 ? 'medal-' + (index + 1) : '' %>">
+                                    <% if (index < 3) { %>
+                                        <div class="medal-icon">
+                                            <% if (index===0) { %>
+                                                <i class="fas fa-medal gold"></i>
+                                                <% } else if (index===1) { %>
+                                                    <i class="fas fa-medal silver"></i>
+                                                    <% } else { %>
+                                                        <i class="fas fa-medal bronze"></i>
+                                                        <% } %>
                                         </div>
-                            </li>
-                            <% }); %>
-                                <% } else { %>
-                                    <li>henüz skor kaydedilmemiş</li>
-                                    <% } %>
-                </ul>
+                                        <% } %>
+                                            <div class="score-info">
+                                                <span class="score-level">Seviye <%= score.level %></span>
+                                                <span class="score-username">
+                                                    <%= score.username %>
+                                                </span>
+                                                <span class="score-date">
+                                                    <%= new Date(score.date).toLocaleString('tr-TR') %>
+                                                </span>
+                                            </div>
+                                </li>
+                                <% }); %>
+                                    <% } else { %>
+                                        <li>henüz skor kaydedilmemiş</li>
+                                        <% } %>
+                    </ul>
+                </div>
             </div>
         </div>
     </div>

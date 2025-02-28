@@ -157,7 +157,7 @@ class MemoryGame {
         this.highScores.innerHTML = '';
         if (scores.length === 0) {
             const li = document.createElement('li');
-            li.textContent = 'Bu grid boyutu için henüz skor kaydedilmemiş';
+            li.textContent = 'henüz skor kaydedilmemiş';
             this.highScores.appendChild(li);
             return;
         }
