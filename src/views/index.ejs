@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ters Hafıza Oyunu</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+    <div id="game-container">
+        <h1>Ters Hafıza Oyunu</h1>
+        <div id="controls">
+            <label for="grid-size">Grid Boyutu Seçin:</label>
+            <select id="grid-size">
+                <option value="3">3x3</option>
+                <option value="4">4x4</option>
+                <option value="5">5x5</option>
+                <option value="6">6x6</option>
+            </select>
+            <button id="start-button">Oyunu Başlat</button>
+        </div>
+        <div id="grid-container">
+            <!-- Grid kareleri dinamik olarak oluşturulacak -->
+        </div>
+        <p id="status"></p>
+        <div id="scoreboard">
+            <h2>Yüksek Skorlar</h2>
+            <ul id="high-scores">
+                <!-- Yüksek skorlar dinamik olarak eklenecek -->
+            </ul>
+        </div>
+    </div>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/js/game.js"></script>
+</body>
+</html> 

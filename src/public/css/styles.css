@@ -1,0 +1,126 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #1e3c72, #2a5298);
+    color: #fff;
+}
+
+#game-container {
+    text-align: center;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 2rem;
+    border-radius: 15px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10px);
+}
+
+h1 {
+    margin-bottom: 2rem;
+    color: #fff;
+    font-size: 2.5rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+#controls {
+    margin-bottom: 2rem;
+}
+
+select, button {
+    padding: 0.8rem 1.5rem;
+    margin: 0.5rem;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+select {
+    background: #fff;
+    color: #333;
+}
+
+button {
+    background: #4CAF50;
+    color: white;
+}
+
+button:hover {
+    background: #45a049;
+    transform: translateY(-2px);
+}
+
+#grid-container {
+    display: grid;
+    gap: 10px;
+    margin: 2rem auto;
+    max-width: 600px;
+}
+
+.grid-square {
+    width: 100px;
+    height: 100px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.grid-square:hover {
+    transform: scale(1.05);
+    background: rgba(255, 255, 255, 0.2);
+}
+
+#status {
+    margin: 1rem 0;
+    font-size: 1.2rem;
+    min-height: 2rem;
+}
+
+#scoreboard {
+    margin-top: 2rem;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+}
+
+#scoreboard h2 {
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+}
+
+#high-scores {
+    list-style: none;
+}
+
+#high-scores li {
+    padding: 0.5rem;
+    margin: 0.5rem 0;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 5px;
+}
+
+@media (max-width: 768px) {
+    #game-container {
+        padding: 1rem;
+        margin: 1rem;
+    }
+
+    .grid-square {
+        width: 80px;
+        height: 80px;
+    }
+
+    h1 {
+        font-size: 2rem;
+    }
+} 
