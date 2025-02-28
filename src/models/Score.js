@@ -19,7 +19,7 @@ const scoreSchema = new mongoose.Schema({
 scoreSchema.statics.findByGridSize = function(gridSize) {
     return this.find({ gridSize })
         .sort({ level: -1, date: -1 })
-        .limit(10);
+        .limit(15);
 };
 
 module.exports = mongoose.model('Score', scoreSchema); 

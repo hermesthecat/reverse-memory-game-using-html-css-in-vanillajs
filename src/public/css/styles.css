@@ -39,6 +39,8 @@ body {
     border-radius: 15px;
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
     backdrop-filter: blur(10px);
+    max-height: calc(100vh - 2rem);
+    overflow-y: auto;
 }
 
 .scoreboard-content {
@@ -133,8 +135,59 @@ button:hover {
     background: rgba(255, 255, 255, 0.1);
     border-radius: 5px;
     display: flex;
+    align-items: center;
+    gap: 1rem;
+    transition: all 0.3s ease;
+}
+
+#high-scores li:hover {
+    transform: translateX(5px);
+    background: rgba(255, 255, 255, 0.15);
+}
+
+.medal-1 {
+    background: rgba(255, 215, 0, 0.15) !important;
+}
+
+.medal-2 {
+    background: rgba(192, 192, 192, 0.15) !important;
+}
+
+.medal-3 {
+    background: rgba(205, 127, 50, 0.15) !important;
+}
+
+.medal-icon {
+    font-size: 1.5rem;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.medal-icon .fa-medal.gold {
+    color: #FFD700;
+    text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+}
+
+.medal-icon .fa-medal.silver {
+    color: #C0C0C0;
+    text-shadow: 0 0 10px rgba(192, 192, 192, 0.5);
+}
+
+.medal-icon .fa-medal.bronze {
+    color: #CD7F32;
+    text-shadow: 0 0 10px rgba(205, 127, 50, 0.5);
+}
+
+.score-info {
+    flex: 1;
+    display: flex;
     flex-direction: column;
-    gap: 0.5rem;
+    gap: 0.3rem;
 }
 
 .score-level {
@@ -157,6 +210,7 @@ button:hover {
         width: 100%;
         position: static;
         margin-top: 2rem;
+        max-height: none;
     }
 
     .scoreboard-content {
@@ -194,6 +248,12 @@ button:hover {
 
     #high-scores {
         grid-template-columns: 1fr;
+    }
+
+    .medal-icon {
+        font-size: 1.2rem;
+        width: 32px;
+        height: 32px;
     }
 }
 

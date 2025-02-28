@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ters Hafıza Oyunu</title>
     <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 
 <body>
@@ -15,9 +16,9 @@
             <div id="controls">
                 <label for="grid-size">Grid Boyutu Seçin:</label>
                 <select id="grid-size">
-                    <option value="4" <%= currentGridSize === 4 ? 'selected' : '' %>>4x4</option>
-                    <option value="5" <%= currentGridSize === 5 ? 'selected' : '' %>>5x5</option>
-                    <option value="6" <%= currentGridSize === 6 ? 'selected' : '' %>>6x6</option>
+                    <option value="4" <%=currentGridSize===4 ? 'selected' : '' %>>4x4</option>
+                    <option value="5" <%=currentGridSize===5 ? 'selected' : '' %>>5x5</option>
+                    <option value="6" <%=currentGridSize===6 ? 'selected' : '' %>>6x6</option>
                 </select>
                 <button id="start-button">Oyunu Başlat</button>
             </div>
@@ -29,18 +30,35 @@
 
         <div id="scoreboard">
             <div class="scoreboard-content">
-                <h2>Yüksek Skorlar <br><span id="current-grid-size"><%= currentGridSize %>x<%= currentGridSize %></span></h2>
+                <h2>Yüksek Skorlar <br><span id="current-grid-size">
+                        <%= currentGridSize %>x<%= currentGridSize %>
+                    </span></h2>
                 <ul id="high-scores">
-                    <% if (typeof scores !== 'undefined' && scores.length > 0) { %>
-                        <% scores.forEach(function(score) { %>
-                            <li>
-                                <span class="score-level">Seviye <%= score.level %></span>
-                                <span class="score-date"><%= new Date(score.date).toLocaleString('tr-TR') %></span>
+                    <% if (typeof scores !=='undefined' && scores.length> 0) { %>
+                        <% scores.forEach(function(score, index) { %>
+                            <li class="<%= index < 3 ? 'medal-' + (index + 1) : '' %>">
+                                <% if (index < 3) { %>
+                                    <div class="medal-icon">
+                                        <% if (index===0) { %>
+                                            <i class="fas fa-medal gold"></i>
+                                            <% } else if (index===1) { %>
+                                                <i class="fas fa-medal silver"></i>
+                                                <% } else { %>
+                                                    <i class="fas fa-medal bronze"></i>
+                                                    <% } %>
+                                    </div>
+                                    <% } %>
+                                        <div class="score-info">
+                                            <span class="score-level">Seviye <%= score.level %></span>
+                                            <span class="score-date">
+                                                <%= new Date(score.date).toLocaleString('tr-TR') %>
+                                            </span>
+                                        </div>
                             </li>
-                        <% }); %>
-                    <% } else { %>
-                        <li>Bu grid boyutu için henüz skor kaydedilmemiş</li>
-                    <% } %>
+                            <% }); %>
+                                <% } else { %>
+                                    <li>henüz skor kaydedilmemiş</li>
+                                    <% } %>
                 </ul>
             </div>
         </div>
