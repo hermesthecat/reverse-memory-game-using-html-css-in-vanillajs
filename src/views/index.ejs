@@ -11,16 +11,16 @@
 
 <body>
     <div class="main-container">
+        <div class="user-status">
+            <% if (user) { %>
+                <span>Hoş geldin, <%= user %></span>
+                <button id="logout-button" class="small-button">Çıkış Yap</button>
+            <% } else { %>
+                <button id="login-button" class="small-button">Giriş Yap</button>
+                <button id="register-button" class="small-button">Kayıt Ol</button>
+            <% } %>
+        </div>
         <div id="game-container">
-            <div class="user-status">
-                <% if (user) { %>
-                    <span>Hoş geldin, <%= user %></span>
-                    <button id="logout-button" class="small-button">Çıkış Yap</button>
-                    <% } else { %>
-                        <button id="login-button" class="small-button">Giriş Yap</button>
-                        <button id="register-button" class="small-button">Kayıt Ol</button>
-                        <% } %>
-            </div>
             <h1>Ters Hafıza Oyunu</h1>
             <div id="controls">
                 <label for="grid-size">Oyun Modu:</label>

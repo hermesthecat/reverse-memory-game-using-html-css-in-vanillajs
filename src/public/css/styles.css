@@ -33,10 +33,21 @@ body {
 
 .user-status {
     display: flex;
-    justify-content: flex-end;
+    justify-content: center;
     align-items: center;
     gap: 1rem;
-    margin-bottom: 1rem;
+    margin-bottom: 2rem;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+}
+
+.user-status span {
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: #fff;
 }
 
 .small-button {
@@ -363,6 +374,16 @@ button:hover {
     .modal-content {
         margin: 5% auto;
         padding: 1rem;
+    }
+
+    .user-status {
+        flex-direction: row;
+        padding: 0.8rem;
+        margin-bottom: 1rem;
+    }
+
+    .user-status span {
+        font-size: 1rem;
     }
 }
 
