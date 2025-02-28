@@ -3,9 +3,9 @@
     --primary-hover: #45a049;
     --bronze-color: #CD7F32;
     --text-light: rgba(255, 255, 255, 0.95);
-    --text-muted: rgba(255, 255, 255, 0.7);
-    --glass-bg: rgba(255, 255, 255, 0.15);
-    --glass-border: rgba(255, 255, 255, 0.2);
+    --text-muted: rgba(255, 255, 255, 0.8);
+    --glass-bg: rgba(255, 255, 255, 0.25);
+    --glass-border: rgba(255, 255, 255, 0.3);
 }
 
 * {
@@ -17,10 +17,18 @@
 body {
     font-family: 'Arial', sans-serif;
     min-height: 100vh;
-    background: linear-gradient(135deg, #1e3c72, #2a5298);
+    background: linear-gradient(135deg, #1a237e, #0d47a1, #1565c0);
     color: #fff;
     padding: 1rem;
     overflow-x: hidden;
+    animation: gradientBG 15s ease infinite;
+    background-size: 400% 400%;
+}
+
+@keyframes gradientBG {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
 }
 
 .main-container {
@@ -34,10 +42,12 @@ body {
 #game-container {
     flex: 1;
     text-align: center;
-    background: rgba(255, 255, 255, 0.1);
+    background: rgba(0, 0, 0, 0.4);
     padding: 2rem;
     border-radius: 15px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    box-shadow: 
+        0 8px 32px rgba(0, 0, 0, 0.3),
+        inset 0 0 0 2px rgba(255, 255, 255, 0.1);
     backdrop-filter: blur(10px);
 }
 
@@ -106,8 +116,34 @@ body {
 h1 {
     margin-bottom: 2rem;
     color: #fff;
-    font-size: 2.5rem;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+    font-size: 3.5rem;
+    text-shadow: 
+        2px 2px 0 #000,
+        -2px -2px 0 #000,
+        2px -2px 0 #000,
+        -2px 2px 0 #000,
+        0 2px 0 #000,
+        2px 0 0 #000,
+        0 -2px 0 #000,
+        -2px 0 0 #000;
+    font-weight: 900;
+    letter-spacing: 2px;
+    position: relative;
+    display: inline-block;
+    background: linear-gradient(45deg, #fff 30%, #f0f0f0 50%, #fff 70%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: titleShine 3s ease-in-out infinite;
+}
+
+@keyframes titleShine {
+    from {
+        background-position: -200% center;
+    }
+    to {
+        background-position: 200% center;
+    }
 }
 
 #controls {
@@ -130,13 +166,23 @@ select {
 }
 
 button {
-    background: #4CAF50;
+    background: var(--primary-color);
     color: white;
+    font-weight: 700;
+    letter-spacing: 1px;
+    box-shadow: 
+        0 4px 15px rgba(0, 0, 0, 0.3),
+        inset 0 -2px 0 rgba(0, 0, 0, 0.2);
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 button:hover {
-    background: #45a049;
+    background: var(--primary-hover);
     transform: translateY(-2px);
+    box-shadow: 
+        0 6px 20px rgba(0, 0, 0, 0.4),
+        inset 0 -2px 0 rgba(0, 0, 0, 0.2);
 }
 
 #grid-container {
@@ -151,16 +197,23 @@ button:hover {
 .grid-square {
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.2);
+    background: rgba(255, 255, 255, 0.1);
     border-radius: 10px;
     cursor: pointer;
     transition: all 0.3s ease;
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 
+        0 4px 15px rgba(0, 0, 0, 0.2),
+        inset 0 0 0 1px rgba(255, 255, 255, 0.1);
 }
 
 .grid-square:hover {
     transform: scale(1.05);
-    background: rgba(0, 0, 0, 0.3);
+    background: rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.4);
+    box-shadow: 
+        0 8px 25px rgba(0, 0, 0, 0.3),
+        inset 0 0 0 1px rgba(255, 255, 255, 0.2);
 }
 
 #status {
@@ -297,15 +350,15 @@ button:hover {
 
 .modal-content {
     position: relative;
-    background: rgba(20, 20, 20, 0.95);
+    background: rgba(30, 30, 30, 0.95);
     backdrop-filter: blur(12px);
     margin: 10vh auto;
     padding: 2.5rem;
     width: 90%;
     max-width: 420px;
     border-radius: 20px;
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
-    border: 1px solid var(--glass-border);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.2);
     transform-origin: center;
     animation: modalContentSlideIn 0.4s ease;
 }
@@ -483,7 +536,12 @@ button:hover {
     }
 
     #grid-container {
-        max-width: 100%;
+        max-width: 90%;
+        margin: 0 auto;
+    }
+
+    .grid-square {
+        min-height: 60px;
     }
 
     select, button {
@@ -524,6 +582,10 @@ button:hover {
 
     .user-status span {
         font-size: 1rem;
+    }
+
+    button {
+        margin: 0.8rem;
     }
 }
 
@@ -569,9 +631,12 @@ button:hover {
 }
 
 .bg-glass {
-    background: rgba(255, 255, 255, 0.1) !important;
+    background: rgba(0, 0, 0, 0.4) !important;
     backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 
+        0 8px 32px rgba(0, 0, 0, 0.3),
+        inset 0 0 0 1px rgba(255, 255, 255, 0.1);
 }
 
 .card {
@@ -597,9 +662,10 @@ button:hover {
 
 /* Modal Styles */
 .modal-content {
-    background: rgba(255, 255, 255, 0.15);
+    background: rgba(30, 30, 30, 0.95);
     backdrop-filter: blur(12px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
 }
 
 .modal-header {
@@ -617,9 +683,9 @@ button:hover {
 }
 
 .form-control:focus, .form-select:focus {
-    background-color: rgba(255, 255, 255, 0.15);
-    border-color: rgba(255, 255, 255, 0.3);
-    box-shadow: 0 0 0 0.25rem rgba(255, 255, 255, 0.1);
+    background-color: rgba(255, 255, 255, 0.2);
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 0.25rem rgba(76, 175, 80, 0.25);
     color: #fff;
 }
 
