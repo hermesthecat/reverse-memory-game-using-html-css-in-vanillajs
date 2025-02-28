@@ -1,7 +1,7 @@
 class Auth {
     constructor() {
-        this.loginModal = new bootstrap.Modal(document.getElementById('login-modal'));
-        this.registerModal = new bootstrap.Modal(document.getElementById('register-modal'));
+        this.loginModal = document.getElementById('login-modal');
+        this.registerModal = document.getElementById('register-modal');
         this.loginButton = document.getElementById('login-button');
         this.registerButton = document.getElementById('register-button');
         this.logoutButton = document.getElementById('logout-button');
@@ -9,12 +9,14 @@ class Auth {
         this.registerForm = document.getElementById('register-form');
         this.loginError = document.getElementById('login-error');
         this.registerError = document.getElementById('register-error');
+        this.closeButtons = document.getElementsByClassName('close');
 
         this.currentUser = null;
         this.init();
     }
 
     init() {
+        // Modal açma/kapama
         if (this.loginButton) {
             this.loginButton.addEventListener('click', () => this.showModal('login'));
         }
@@ -25,36 +27,41 @@ class Auth {
             this.logoutButton.addEventListener('click', () => this.logout());
         }
 
+        // Modalları kapatma
+        Array.from(this.closeButtons).forEach(button => {
+            button.addEventListener('click', () => this.hideModals());
+        });
+
+        // Form submit
         this.loginForm.addEventListener('submit', (e) => this.handleLogin(e));
         this.registerForm.addEventListener('submit', (e) => this.handleRegister(e));
 
-        // Modal kapatıldığında form ve hata mesajlarını temizle
-        document.getElementById('login-modal').addEventListener('hidden.bs.modal', () => {
-            this.loginForm.reset();
-            this.loginError.style.display = 'none';
-            this.loginError.textContent = '';
+        // Modal dışına tıklama
+        window.addEventListener('click', (e) => {
+            if (e.target === this.loginModal || e.target === this.registerModal) {
+                this.hideModals();
+            }
         });
 
-        document.getElementById('register-modal').addEventListener('hidden.bs.modal', () => {
-            this.registerForm.reset();
-            this.registerError.style.display = 'none';
-            this.registerError.textContent = '';
-        });
-
+        // Auth durumunu kontrol et
         this.checkAuth();
     }
 
     showModal(type) {
         if (type === 'login') {
-            this.loginModal.show();
+            this.loginModal.style.display = 'block';
         } else {
-            this.registerModal.show();
+            this.registerModal.style.display = 'block';
         }
     }
 
     hideModals() {
-        this.loginModal.hide();
-        this.registerModal.hide();
+        this.loginModal.style.display = 'none';
+        this.registerModal.style.display = 'none';
+        this.loginError.style.display = 'none';
+        this.registerError.style.display = 'none';
+        this.loginError.textContent = '';
+        this.registerError.textContent = '';
     }
 
     async handleLogin(e) {
