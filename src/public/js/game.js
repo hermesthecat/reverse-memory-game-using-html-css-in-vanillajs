@@ -22,6 +22,10 @@ class MemoryGame {
         this.startOverlay = this.gridContainer.querySelector('#game-start-overlay');
         this.correctOverlay = this.gridContainer.querySelector('#correct-answer-overlay');
         this.resultOverlay = this.gridContainer.querySelector('#game-result-overlay');
+        
+        // Close result button event listener
+        const closeResultButton = this.resultOverlay.querySelector('#close-result-button');
+        closeResultButton.addEventListener('click', () => this.closeGameResult());
 
         this.init();
         this.handleResize = this.handleResize.bind(this);
@@ -202,7 +206,7 @@ class MemoryGame {
         
         this.showGameResult(resultMessage);
         
-        if (auth.isLoggedIn()) {
+        if (window.isAuthenticated()) {
             this.saveScore(this.score);
         }
     }
