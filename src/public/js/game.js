@@ -17,6 +17,11 @@ class MemoryGame {
         this.status = document.getElementById('status');
         this.highScores = document.getElementById('high-scores');
         this.currentGridSizeSpan = document.getElementById('current-grid-size');
+        
+        // Overlay referanslarını sakla
+        this.startOverlay = this.gridContainer.querySelector('#game-start-overlay');
+        this.correctOverlay = this.gridContainer.querySelector('#correct-answer-overlay');
+        this.resultOverlay = this.gridContainer.querySelector('#game-result-overlay');
 
         this.init();
         this.handleResize = this.handleResize.bind(this);
@@ -83,9 +88,22 @@ class MemoryGame {
     }
 
     createGrid() {
+        // Önce overlayleri saklayalım
+        const startOverlay = this.gridContainer.querySelector('#game-start-overlay');
+        const correctOverlay = this.gridContainer.querySelector('#correct-answer-overlay');
+        const resultOverlay = this.gridContainer.querySelector('#game-result-overlay');
+        
+        // Grid'i temizle
         this.gridContainer.innerHTML = '';
+        
+        // Overlayleri geri ekle
+        if (startOverlay) this.gridContainer.appendChild(startOverlay);
+        if (correctOverlay) this.gridContainer.appendChild(correctOverlay);
+        if (resultOverlay) this.gridContainer.appendChild(resultOverlay);
+        
         this.adjustGridLayout();
         
+        // Grid karelerini oluştur
         for (let i = 0; i < this.gridSize * this.gridSize; i++) {
             const square = document.createElement('div');
             square.classList.add('grid-square');
@@ -109,9 +127,8 @@ class MemoryGame {
     }
 
     showStartOverlay() {
-        const overlay = document.getElementById('game-start-overlay');
-        const countdownEl = overlay.querySelector('.countdown');
-        overlay.classList.add('show');
+        const countdownEl = this.startOverlay.querySelector('.countdown');
+        this.startOverlay.classList.add('show');
         
         let count = 3;
         countdownEl.textContent = count;
@@ -122,7 +139,7 @@ class MemoryGame {
                 countdownEl.textContent = count;
             } else {
                 clearInterval(countdown);
-                overlay.classList.remove('show');
+                this.startOverlay.classList.remove('show');
                 this.generateSequence();
                 this.displaySequence();
             }
@@ -191,15 +208,13 @@ class MemoryGame {
     }
 
     showGameResult(message) {
-        const overlay = document.getElementById('game-result-overlay');
-        const messageEl = document.getElementById('game-result-message');
+        const messageEl = this.resultOverlay.querySelector('#game-result-message');
         messageEl.textContent = message;
-        overlay.classList.add('show');
+        this.resultOverlay.classList.add('show');
     }
 
     closeGameResult() {
-        const overlay = document.getElementById('game-result-overlay');
-        overlay.classList.remove('show');
+        this.resultOverlay.classList.remove('show');
     }
 
     generateSequence() {
@@ -238,9 +253,8 @@ class MemoryGame {
     }
 
     showCorrectAnswerOverlay() {
-        const overlay = document.getElementById('correct-answer-overlay');
-        const countdownEl = overlay.querySelector('.countdown');
-        overlay.classList.add('show');
+        const countdownEl = this.correctOverlay.querySelector('.countdown');
+        this.correctOverlay.classList.add('show');
         
         let count = 3;
         countdownEl.textContent = count;
@@ -251,7 +265,7 @@ class MemoryGame {
                 countdownEl.textContent = count;
             } else {
                 clearInterval(countdown);
-                overlay.classList.remove('show');
+                this.correctOverlay.classList.remove('show');
                 this.nextLevel();
             }
         }, 1000);

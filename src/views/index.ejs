@@ -29,6 +29,29 @@
             </div>
             <div id="grid-container">
                 <!-- Grid kareleri dinamik olarak oluşturulacak -->
+                <div id="game-start-overlay" class="game-start-overlay">
+                    <div class="game-start-content">
+                        <h2>Oyun Başlıyor!</h2>
+                        <p>Sırayı tersinden hatırlamaya hazır olun...</p>
+                        <div class="countdown">3</div>
+                    </div>
+                </div>
+
+                <div id="correct-answer-overlay" class="game-start-overlay">
+                    <div class="game-start-content">
+                        <h2>Doğru!</h2>
+                        <p>Sıradaki seviyeye hazırlanın...</p>
+                        <div class="countdown">3</div>
+                    </div>
+                </div>
+
+                <div id="game-result-overlay" class="game-result-overlay">
+                    <div class="game-result-content">
+                        <h2>Oyun Bitti!</h2>
+                        <p id="game-result-message"></p>
+                        <button onclick="closeGameResult()" class="small-button">Tamam</button>
+                    </div>
+                </div>
             </div>
             <p id="status"></p>
         </div>
@@ -121,30 +144,6 @@
                 <button type="submit">Kayıt Ol</button>
                 <div id="register-error" class="error-message" style="display: none;"></div>
             </form>
-        </div>
-    </div>
-
-    <div id="game-start-overlay" class="game-start-overlay">
-        <div class="game-start-content">
-            <h2>Oyun Başlıyor!</h2>
-            <p>Sırayı tersinden hatırlamaya hazır olun...</p>
-            <div class="countdown">3</div>
-        </div>
-    </div>
-
-    <div id="correct-answer-overlay" class="game-start-overlay">
-        <div class="game-start-content">
-            <h2>Doğru!</h2>
-            <p>Sıradaki seviyeye hazırlanın...</p>
-            <div class="countdown">3</div>
-        </div>
-    </div>
-
-    <div id="game-result-overlay" class="game-result-overlay">
-        <div class="game-result-content">
-            <h2>Oyun Bitti!</h2>
-            <p id="game-result-message"></p>
-            <button onclick="closeGameResult()" class="small-button">Tamam</button>
         </div>
     </div>
 

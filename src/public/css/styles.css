@@ -203,6 +203,7 @@ button:hover {
     width: 100%;
     max-width: 600px;
     aspect-ratio: 1;
+    position: relative;
 }
 
 .grid-square {
@@ -622,13 +623,13 @@ button:hover {
     }
 }
 
-.game-result-overlay {
-    position: fixed;
+.game-start-overlay, .game-result-overlay {
+    position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.5);
+    background: rgba(0, 0, 0, 0.8);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -636,20 +637,22 @@ button:hover {
     opacity: 0;
     visibility: hidden;
     transition: all 0.3s ease;
+    border-radius: 15px;
+    backdrop-filter: blur(8px);
 }
 
-.game-result-overlay.show {
+.game-start-overlay.show, .game-result-overlay.show {
     opacity: 1;
     visibility: visible;
 }
 
-.game-result-content {
+.game-start-content, .game-result-content {
     background: var(--game-result-bg);
     color: var(--game-result-text);
     padding: 2rem;
     border-radius: 15px;
     text-align: center;
-    max-width: 400px;
+    max-width: 90%;
     width: 90%;
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
     transform: translateY(-20px);
@@ -668,79 +671,21 @@ button:hover {
     }
 }
 
-.game-result-content h2 {
+.game-start-content h2, .game-result-content h2 {
     margin-bottom: 1rem;
     font-size: 2rem;
     color: var(--game-result-text);
 }
 
-.game-result-content p {
+.game-start-content p, .game-result-content p {
     margin-bottom: 1.5rem;
     font-size: 1.2rem;
 }
 
-.game-result-content button {
+.game-start-content button, .game-result-content button {
     margin-top: 1rem;
     width: 100%;
     max-width: 200px;
-}
-
-.game-start-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.5);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-    opacity: 0;
-    visibility: hidden;
-    transition: all 0.3s ease;
-}
-
-.game-start-overlay.show {
-    opacity: 1;
-    visibility: visible;
-}
-
-.game-start-content {
-    background: var(--game-result-bg);
-    color: var(--game-result-text);
-    padding: 2rem;
-    border-radius: 15px;
-    text-align: center;
-    max-width: 400px;
-    width: 90%;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-    transform: translateY(-20px);
-    transition: all 0.3s ease;
-    animation: startPopIn 0.5s ease forwards;
-}
-
-@keyframes startPopIn {
-    0% {
-        opacity: 0;
-        transform: translateY(-20px);
-    }
-    100% {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-.game-start-content h2 {
-    margin-bottom: 1rem;
-    font-size: 2rem;
-    color: var(--game-result-text);
-}
-
-.game-start-content p {
-    margin-bottom: 1.5rem;
-    font-size: 1.2rem;
-    color: var(--game-result-text);
 }
 
 .game-start-content .countdown {
